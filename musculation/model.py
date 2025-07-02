@@ -2,8 +2,16 @@
 Module sqlachemy table
 """
 
-from sqlalchemy import (Column, Date, Float, Integer, MetaData,
-                        PrimaryKeyConstraint, String, Table)
+from sqlalchemy import (
+    Column,
+    Date,
+    Float,
+    Integer,
+    MetaData,
+    PrimaryKeyConstraint,
+    String,
+    Table,
+)
 
 metadata = MetaData()
 
@@ -17,5 +25,3 @@ seances_musculation_table = Table(
     Column("poids_kg", Float, nullable=False),
     PrimaryKeyConstraint("date", "exercice"),
 )
-
-# test

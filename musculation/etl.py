@@ -16,6 +16,7 @@ class ETLSeanceMuscu:
     """
     Classe pour exécuter un ETL sur des séances de musculation.
     """
+
     def __init__(self, db_url):
         self.db_manager = DBManager(db_url, verbose=True)
 
