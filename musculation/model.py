@@ -1,6 +1,9 @@
-from sqlalchemy import Table, Column, Date, Integer, Float, String, MetaData
-from sqlalchemy import PrimaryKeyConstraint
+"""
+Module sqlachemy table
+"""
 
+from sqlalchemy import (Column, Date, Float, Integer, MetaData,
+                        PrimaryKeyConstraint, String, Table)
 
 metadata = MetaData()
 
