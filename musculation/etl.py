@@ -101,6 +101,7 @@ if __name__ == "__main__":
         "@aws-0-eu-west-3.pooler.supabase.com:5432/postgres"
     )
     etl = ETLSeanceMuscu(DB_URL)
+    # testons
     extracted_df, filename = etl.extract()
     df_transform = etl.transform(extracted_df, filename)
     etl.load(df_transform)
