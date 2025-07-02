@@ -1,18 +1,19 @@
 """
-Model module defining the seances_musculation table for musculation sessions.
+Module sqlachemy table
 """
 
-from sqlalchemy import Column, Float, Integer, MetaData, String, Table
+from sqlalchemy import (Column, Date, Float, Integer, MetaData,
+                        PrimaryKeyConstraint, String, Table)
 
-metadata = MetaData(schema="public")
+metadata = MetaData()
 
 seances_musculation_table = Table(
     "seances_musculation",
     metadata,
-    Column("id", Integer, primary_key=True, autoincrement=True, comment="Primary key"),
-    Column("exercice", String, comment="Exercise name"),
-    Column("series", Integer, comment="Number of series"),
-    Column("repetitions", Integer, comment="Number of repetitions"),
-    Column("poids_kg", Float, comment="Weight in kilograms"),
-    comment="Table to store musculation session details",
+    Column("date", Date, nullable=False),
+    Column("exercice", String, nullable=False),
+    Column("series", Integer, nullable=False),
+    Column("repetitions", Integer, nullable=False),
+    Column("poids_kg", Float, nullable=False),
+    PrimaryKeyConstraint("date", "exercice"),
 )

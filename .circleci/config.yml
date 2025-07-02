@@ -1,0 +1,30 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: cimg/python:3.12.1
+    working_directory: ~/repo
+
+jobs:
+  lint-and-test:
+    executor: python-executor
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+      - run:
+          name: Run linting and tests
+          command: |
+            pytest tests/linting_test.py
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - lint-and-test
