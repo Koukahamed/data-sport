@@ -17,3 +17,5 @@ seances_musculation_table = Table(
     Column("poids_kg", Float, nullable=False),
     PrimaryKeyConstraint("date", "exercice"),
 )
+
+# test
