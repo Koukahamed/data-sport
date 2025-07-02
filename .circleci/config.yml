@@ -11,20 +11,32 @@ jobs:
     executor: python-executor
     steps:
       - checkout
-
       - run:
           name: Install dependencies
           command: |
             python -m pip install --upgrade pip
             pip install -r requirements.txt
-
       - run:
           name: Run linting and tests
           command: |
             pytest tests/linting_test.py
+
+  deploy-to-prod:
+    executor: python-executor
+    steps:
+      - run:
+          name: Deploy to production
+          command: echo "Deploying to production..."
 
 workflows:
   version: 2
   test-workflow:
     jobs:
       - lint-and-test
+      - hold-for-approval:
+          type: approval
+          requires:
+            - lint-and-test
+      - deploy-to-prod:
+          requires:
+            - hold-for-approval
