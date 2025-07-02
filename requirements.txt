@@ -1,0 +1,9 @@
+black
+isort
+pylint
+flake8
+pandas
+python-dotenv
+sqlalchemy
+psycopg2-binary==2.9.10
+git+https://github.com/Koukahamed/data-tools.git
