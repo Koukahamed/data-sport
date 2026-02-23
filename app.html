@@ -540,7 +540,7 @@ html, body {
         <div class="form-grid">
           <div class="field"><label>Date</label><input type="date" id="t-date"></div>
           <div class="field"><label>Séance</label>
-            <select id="t-session">
+            <select id="t-session" onchange="onSessionChange(this.value)">
               <option value="">Choisir...</option>
               <option>Jour 1 — Poussée</option>
               <option>Jour 2 — Tirage</option>
@@ -548,7 +548,13 @@ html, body {
               <option>Jour 5 — Full Body</option>
             </select>
           </div>
-          <div class="field full"><label>Exercice</label><input type="text" id="t-exercise" placeholder="Ex: Machine convergente à plat"></div>
+          <div class="field full" id="exercise-field">
+            <label>Exercice</label>
+            <select id="t-exercise-select" style="display:none" onchange="onExerciseSelect(this.value)">
+              <option value="">Choisir un exercice...</option>
+            </select>
+            <input type="text" id="t-exercise" placeholder="← Choisissez d'abord une séance" readonly style="cursor:default;color:#333;">
+          </div>
           <div class="field"><label>Charge (kg)</label><input type="number" id="t-weight" placeholder="Ex: 80"></div>
           <div class="field"><label>Séries × Reps</label><input type="text" id="t-sets" placeholder="Ex: 4×8"></div>
           <div class="field full"><label>Notes</label><input type="text" id="t-notes" placeholder="Ressenti, technique..."></div>
@@ -650,12 +656,115 @@ function toggleCard(id) {
   if (!isOpen) setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
 }
 
+// ── Session → exercises map ─────────────────────────
+const SESSION_EXERCISES = {
+  'Jour 1 — Poussée': [
+    'Machine convergente à plat',
+    'Machine convergente inclinée',
+    'Écarté cable basse poulie',
+    'Développé militaire debout',
+    'Élévations latérales cable',
+    'Dips lestés',
+    'Seated overhead dips',
+    'Triceps poulie haute (corde)',
+  ],
+  'Jour 2 — Tirage': [
+    'Tirage vertical prise large',
+    'Tirage vertical prise serrée neutre',
+    'Low Row Machine TechnoGym',
+    'Face pull corde',
+    'Curl barre EZ',
+    'Curl incliné haltères',
+    'Curl marteau haltères',
+  ],
+  'Jour 4 — Jambes': [
+    'Squat barre haute',
+    'Leg press 45°',
+    'Romanian Deadlift',
+    'Leg curl assis',
+    'Leg curl couché',
+    'Mollets debout machine',
+  ],
+  'Jour 5 — Full Body': [
+    'Soulevé de terre classique',
+    'Machine convergente à plat',
+    'Tractions lestées',
+    'Développé militaire barre',
+    'Ab wheel / Planche RKC',
+  ],
+};
+
+function onSessionChange(session) {
+  const sel = document.getElementById('t-exercise-select');
+  const inp = document.getElementById('t-exercise');
+
+  if (!session || !SESSION_EXERCISES[session]) {
+    // No session: show locked input
+    sel.style.display = 'none';
+    inp.style.display = '';
+    inp.value = '';
+    inp.placeholder = '← Choisissez d'abord une séance';
+    inp.readOnly = true;
+    inp.style.cursor = 'default';
+    inp.style.color = '#333';
+    return;
+  }
+
+  // Build dropdown
+  const exercises = SESSION_EXERCISES[session];
+  sel.innerHTML = '<option value="">Choisir un exercice...</option>';
+  exercises.forEach(ex => {
+    const opt = document.createElement('option');
+    opt.value = ex;
+    opt.textContent = ex;
+    sel.appendChild(opt);
+  });
+  // Add "Autre" option
+  const other = document.createElement('option');
+  other.value = '__autre__';
+  other.textContent = 'Autre (saisir manuellement)';
+  sel.appendChild(other);
+
+  sel.value = '';
+  sel.style.display = '';
+  inp.style.display = 'none';
+  inp.value = '';
+}
+
+function onExerciseSelect(value) {
+  const inp = document.getElementById('t-exercise');
+  if (value === '__autre__') {
+    const sel = document.getElementById('t-exercise-select');
+    sel.style.display = 'none';
+    inp.style.display = '';
+    inp.value = '';
+    inp.placeholder = 'Saisir l'exercice...';
+    inp.readOnly = false;
+    inp.style.cursor = '';
+    inp.style.color = '';
+    inp.focus();
+  } else {
+    inp.value = value;
+  }
+}
+
 // ── Tracker ─────────────────────────────────────────
 let log = JSON.parse(localStorage.getItem('gymLog') || '[]');
 
 function saveEntry() {
-  const exercise = document.getElementById('t-exercise').value.trim();
-  if (!exercise) { document.getElementById('t-exercise').focus(); return; }
+  const sel = document.getElementById('t-exercise-select');
+  const inp = document.getElementById('t-exercise');
+  // Get exercise value: from select (if visible & chosen) or from text input
+  let exercise = '';
+  if (sel.style.display !== 'none' && sel.value && sel.value !== '__autre__') {
+    exercise = sel.value;
+  } else {
+    exercise = inp.value.trim();
+  }
+  if (!exercise) {
+    if (sel.style.display !== 'none') { sel.focus(); } else { inp.focus(); }
+    return;
+  }
 
   const entry = {
     id: Date.now(),
@@ -670,7 +779,16 @@ function saveEntry() {
   log.unshift(entry);
   localStorage.setItem('gymLog', JSON.stringify(log.slice(0, 100)));
 
-  ['t-exercise','t-weight','t-sets','t-notes'].forEach(id => document.getElementById(id).value = '');
+  ['t-weight','t-sets','t-notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('t-exercise').value = '';
+  const selAfter = document.getElementById('t-exercise-select');
+  selAfter.style.display = 'none';
+  selAfter.innerHTML = '';
+  document.getElementById('t-exercise').style.display = '';
+  document.getElementById('t-exercise').placeholder = '← Choisissez d\'abord une séance';
+  document.getElementById('t-exercise').readOnly = true;
+  document.getElementById('t-exercise').style.cursor = 'default';
+  document.getElementById('t-exercise').style.color = '#333';
   document.getElementById('t-session').value = '';
 
   renderLog();
