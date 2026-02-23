@@ -838,5 +838,14 @@ function renderLog() {
 
 renderLog();
 </script>
+<script>
+// Tell parent frame our required height so Streamlit can resize the iframe
+function reportHeight() {
+  const h = document.getElementById('app') ? document.getElementById('app').scrollHeight : document.body.scrollHeight;
+  window.parent.postMessage({type: 'streamlit:setFrameHeight', height: Math.max(h, window.innerHeight)}, '*');
+}
+window.addEventListener('load', reportHeight);
+window.addEventListener('resize', reportHeight);
+</script>
 </body>
 </html>
