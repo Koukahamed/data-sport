@@ -144,6 +144,13 @@ html, body {
 }
 .tab.active .tab-label { color: var(--accent); }
 
+/* WEEK HEADING */
+.week-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px; letter-spacing: 4px; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 12px;
+}
+
 /* DAY CARDS */
 .day-card {
   background: var(--card);
@@ -301,6 +308,9 @@ html, body {
 }
 
 /* LOG */
+.action-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+.csv-btn { flex: 1; background: #222; color: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 10px; padding: 8px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
 .log-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 12px;
@@ -356,15 +366,6 @@ html, body {
   <div id="screens">
 
     <div class="screen active" id="screen-programme">
-
-      <div class="install-banner" id="installBanner">
-        <div class="install-icon">📱</div>
-        <div class="install-text">
-          <strong>Ajouter à l'écran d'accueil</strong>
-          Safari → ⬆ Partager → « Sur l'écran d'accueil » pour utiliser comme une vraie app.
-        </div>
-        <button class="install-close" onclick="dismissBanner()">✕</button>
-      </div>
 
       <div class="week-heading">Planning semaine</div>
 
@@ -563,16 +564,6 @@ function updateExerciseList() {
     : '<option value="">Sélectionnez une séance...</option>';
 }
 
-// ── Install banner ─────────────────────────────────
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIOS && !window.navigator.standalone && !localStorage.getItem('installDismissed')) {
-  document.getElementById('installBanner').classList.add('visible');
-}
-function dismissBanner() {
-  document.getElementById('installBanner').classList.remove('visible');
-  localStorage.setItem('installDismissed', '1');
-}
-
 // ── Tab navigation ──────────────────────────────────
 let currentTab = 'programme';
 const tabOrder = ['programme', 'principes', 'tracker'];
@@ -651,7 +642,6 @@ function saveEntry() {
   localStorage.setItem('gymLog', JSON.stringify(log.slice(0, 100)));
 
   ['t-weight','t-sets','t-notes'].forEach(id => document.getElementById(id).value = '');
-  // Note: On garde la session et l'exercice sélectionnés pour enchaîner les séries si besoin
 
   renderLog();
 
@@ -673,15 +663,37 @@ function clearAll() {
   renderLog();
 }
 
+// LOGIQUE D'EXPORT CSV
+function downloadCSV() {
+  if (log.length === 0) return alert("Aucune donnée à exporter.");
+  
+  let csvContent = "data:text/csv;charset=utf-8,Date,Seance,Exercice,Poids,Series_Reps\n";
+  log.forEach(e => {
+    csvContent += `${e.date},${e.session},${e.exercise},${e.weight},${e.sets}\n`;
+  });
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `force_muscle_export_${new Date().toLocaleDateString()}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 function renderLog() {
   const c = document.getElementById('logSection');
   if (!log.length) {
     c.innerHTML = `<div class="empty-state"><div class="empty-icon">🏋️</div>Aucune séance enregistrée.<br>Commencez à tracker vos performances !</div>`;
     return;
   }
-  let html = `<div class="log-header">
+  let html = `
+    <div class="action-bar">
+      <button class="csv-btn" onclick="downloadCSV()">📥 EXPORTER EN CSV</button>
+      <button class="csv-btn" style="color:var(--accent2); border-color:var(--accent2)" onclick="clearAll()">🗑 TOUT VIDER</button>
+    </div>
+    <div class="log-header">
     <div class="log-count">Historique <span>${log.length}</span></div>
-    <button class="clear-btn" onclick="clearAll()">🗑 Tout vider</button>
   </div>`;
   log.forEach(e => {
     html += `<div class="log-entry">
@@ -698,6 +710,7 @@ function renderLog() {
   c.innerHTML = html;
 }
 
+document.getElementById('t-date').valueAsDate = new Date();
 renderLog();
 </script>
 </body>
