@@ -33,7 +33,6 @@ html, body {
   overflow: hidden;
 }
 
-/* APP SHELL */
 #app {
   display: flex;
   flex-direction: column;
@@ -41,7 +40,6 @@ html, body {
   height: -webkit-fill-available;
 }
 
-/* TOP BAR */
 .topbar {
   flex-shrink: 0;
   padding: calc(14px + var(--safe-t)) 20px 12px;
@@ -69,7 +67,6 @@ html, body {
   color: var(--muted); text-align: right; line-height: 1.7;
 }
 
-/* SCREEN CONTAINER */
 #screens {
   flex: 1;
   overflow: hidden;
@@ -93,7 +90,6 @@ html, body {
   pointer-events: all;
 }
 
-/* BOTTOM TAB BAR */
 .tabbar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -117,9 +113,7 @@ html, body {
   cursor: pointer;
   padding: 8px 4px;
   position: relative;
-  transition: opacity 0.15s;
 }
-.tab:active { opacity: 0.6; }
 
 .tab-indicator {
   position: absolute;
@@ -131,45 +125,15 @@ html, body {
 }
 .tab.active .tab-indicator { transform: translateX(-50%) scaleX(1); }
 
-.tab-icon {
-  font-size: 21px;
-  transition: transform 0.22s cubic-bezier(.34,1.56,.64,1);
-}
+.tab-icon { font-size: 21px; }
 .tab.active .tab-icon { transform: scale(1.18) translateY(-2px); }
 
 .tab-label {
   font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
   color: var(--muted);
-  transition: color 0.2s;
 }
 .tab.active .tab-label { color: var(--accent); }
 
-/* INSTALL BANNER */
-.install-banner {
-  display: none;
-  background: linear-gradient(135deg, #161600, #0f1000);
-  border: 1px solid rgba(232,255,0,0.25);
-  border-radius: 12px;
-  margin-bottom: 16px;
-  padding: 14px 14px;
-  align-items: flex-start;
-  gap: 12px;
-  animation: fadeUp 0.4s ease;
-}
-.install-banner.visible { display: flex; }
-.install-icon { font-size: 22px; margin-top: 1px; }
-.install-text { flex: 1; font-size: 12px; color: #aaa; line-height: 1.6; }
-.install-text strong { color: var(--accent); font-family: 'Bebas Neue'; font-size: 14px; letter-spacing: 1px; display: block; margin-bottom: 2px; }
-.install-close { background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 0; }
-
-/* WEEK HEADING */
-.week-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 11px; letter-spacing: 4px; color: var(--muted);
-  text-transform: uppercase; margin-bottom: 12px;
-}
-
-/* DAY CARDS */
 .day-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -177,675 +141,199 @@ html, body {
   margin-bottom: 10px;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
 }
-.day-card:active { transform: scale(0.985); }
-.day-card.open { border-color: rgba(232,255,0,0.5); box-shadow: 0 0 28px rgba(232,255,0,0.05); }
+.day-card.open { border-color: rgba(232,255,0,0.5); }
 .day-card.rest { cursor: default; opacity: 0.55; }
-.day-card.rest:active { transform: none; }
 
-.card-header {
-  padding: 15px 16px;
-  display: flex; align-items: center; gap: 13px;
-}
-.card-dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--accent); flex-shrink: 0;
-  transition: box-shadow 0.2s;
-}
-.day-card.open .card-dot { box-shadow: 0 0 8px var(--accent); }
+.card-header { padding: 15px 16px; display: flex; align-items: center; gap: 13px; }
+.card-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
 .day-card.rest .card-dot { background: var(--muted); }
-
-.card-info { flex: 1; min-width: 0; }
+.card-info { flex: 1; }
 .card-day { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1.1; margin-top: 1px; }
-.card-muscles { font-size: 11px; color: #444; font-weight: 300; margin-top: 2px; }
-
-.card-chevron {
-  font-size: 20px; color: #333;
-  transition: transform 0.25s cubic-bezier(.4,0,.2,1), color 0.2s;
-  flex-shrink: 0;
-}
+.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1.1; }
+.card-muscles { font-size: 11px; color: #444; font-weight: 300; }
+.card-chevron { font-size: 20px; color: #333; transition: transform 0.25s; }
 .day-card.open .card-chevron { transform: rotate(90deg); color: var(--accent); }
 
-/* DETAIL EXPAND */
-.card-detail {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(.4,0,.2,1);
-}
+.card-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
 .card-detail.open { max-height: 3000px; }
+.card-detail-inner { border-top: 1px solid var(--border); padding: 14px 16px 18px; }
 
-.card-detail-inner {
-  border-top: 1px solid var(--border);
-  padding: 14px 16px 18px;
-}
-
-.detail-warmup {
-  font-size: 10px; color: var(--muted); letter-spacing: 0.5px;
-  margin-bottom: 14px; display: flex; align-items: center; gap: 6px;
-}
-.detail-warmup::before { content: '🔥'; font-size: 12px; }
-
-.ex-row {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 11px 0;
-  border-bottom: 1px solid #181818;
-}
-.ex-row:last-child { border-bottom: none; padding-bottom: 0; }
-
-.ex-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px; color: #2a2a2a;
-  width: 20px; flex-shrink: 0; text-align: right; margin-top: 1px;
-}
-.ex-info { flex: 1; }
-.ex-name { font-size: 14px; font-weight: 500; color: var(--white); line-height: 1.3; }
-.ex-note { font-size: 11px; color: #4a4a4a; font-weight: 300; margin-top: 3px; line-height: 1.4; }
+.ex-row { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid #181818; }
+.ex-num { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2a2a2a; width: 20px; }
+.ex-name { font-size: 14px; font-weight: 500; color: var(--white); }
+.ex-note { font-size: 11px; color: #4a4a4a; margin-top: 3px; }
 .ex-chips { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
-
-.chip {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 12px; letter-spacing: 0.5px;
-  padding: 3px 8px; border-radius: 5px;
-}
+.chip { font-family: 'Bebas Neue', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 5px; }
 .chip-sets { background: rgba(232,255,0,0.1); color: var(--accent); }
 .chip-reps { background: rgba(255,255,255,0.05); color: #888; }
-.chip-rest { background: transparent; border: 1px solid #222; color: #444; font-family: 'DM Sans',sans-serif; font-size: 10px; letter-spacing: 0; }
 
-/* PRINCIPES SCREEN */
-.stat-row {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
-  margin-bottom: 24px;
-}
-.stat-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 16px;
-}
-.stat-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-.stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--accent); margin-top: 3px; line-height: 1; }
+.tracker-form { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
+.form-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--accent); margin-bottom: 14px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.field.full { grid-column: 1 / -1; }
+.field label { display: block; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.field input, .field select { width: 100%; background: #111; border: 1px solid var(--border); border-radius: 7px; color: var(--white); padding: 10px; font-size: 13px; outline: none; }
 
-.section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px; letter-spacing: 1px;
-  margin-bottom: 12px; margin-top: 24px;
-  color: var(--white);
-}
-.section-title:first-of-type { margin-top: 0; }
+.save-btn { width: 100%; background: var(--accent); color: var(--black); border: none; border-radius: 8px; padding: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; margin-top: 15px; cursor: pointer; }
 
-.principle-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 16px; margin-bottom: 8px;
-  display: flex; gap: 13px; align-items: flex-start;
-}
-.principle-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
-.principle-title { font-family: 'Bebas Neue', sans-serif; font-size: 17px; margin-bottom: 4px; }
-.principle-text { font-size: 12px; color: #666; font-weight: 300; line-height: 1.6; }
-
-/* TRACKER SCREEN */
-.tracker-form {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 16px; margin-bottom: 20px;
-}
-.form-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18px; letter-spacing: 1px; margin-bottom: 14px; color: var(--accent);
-}
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 13px; }
-.form-grid .full { grid-column: 1 / -1; }
-
-.field label {
-  display: block; font-size: 8px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
-}
-.field input, .field select {
-  width: 100%; background: #111; border: 1px solid var(--border);
-  border-radius: 7px; color: var(--white); padding: 9px 11px;
-  font-family: 'DM Sans', sans-serif; font-size: 13px;
-  outline: none; transition: border-color 0.2s;
-  -webkit-appearance: none; appearance: none;
-}
-.field input:focus, .field select:focus { border-color: rgba(232,255,0,0.4); }
-.field input::placeholder { color: #2a2a2a; }
-
-.save-btn {
-  width: 100%; background: var(--accent); color: var(--black);
-  border: none; border-radius: 8px; padding: 12px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 2px;
-  cursor: pointer; transition: opacity 0.15s, transform 0.1s;
-}
-.save-btn:active { transform: scale(0.98); opacity: 0.85; }
-
-.saved-toast {
-  display: none;
-  background: rgba(232,255,0,0.08);
-  border: 1px solid rgba(232,255,0,0.2);
-  border-radius: 7px; padding: 9px 14px;
-  font-size: 12px; color: var(--accent); margin-top: 10px;
-  text-align: center; animation: fadeUp 0.3s ease;
-}
-
-/* LOG */
-.log-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px;
-}
-.log-count { font-family: 'Bebas Neue', sans-serif; font-size: 20px; }
-.log-count span { color: var(--accent); }
-.clear-btn {
-  background: none; border: 1px solid var(--border); border-radius: 6px;
-  color: var(--muted); font-size: 10px; padding: 5px 11px;
-  cursor: pointer; letter-spacing: 1px; transition: all 0.15s;
-}
-.clear-btn:hover, .clear-btn:active { border-color: var(--accent2); color: var(--accent2); }
-
-.log-entry {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 13px 14px; margin-bottom: 8px;
-  display: flex; align-items: flex-start; gap: 10px;
-  animation: fadeUp 0.25s ease;
-}
-.log-left { flex: 1; min-width: 0; }
+.log-entry { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: flex-start; }
 .log-exercise { font-size: 14px; font-weight: 500; }
-.log-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.log-sets { font-size: 11px; color: #555; margin-top: 4px; }
-.log-weight { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); flex-shrink: 0; line-height: 1; margin-top: 2px; }
-.log-weight small { font-family: 'DM Sans',sans-serif; font-size: 10px; color: #444; }
-.log-del {
-  background: none; border: none; color: #2a2a2a; font-size: 14px;
-  cursor: pointer; padding: 2px; transition: color 0.15s; flex-shrink: 0;
-  margin-top: 2px;
-}
-.log-del:hover, .log-del:active { color: var(--accent2); }
+.log-meta { font-size: 11px; color: var(--muted); }
+.log-weight { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); }
 
-.empty-state {
-  text-align: center; padding: 50px 20px;
-  color: #333; font-size: 13px; font-weight: 300;
-}
-.empty-icon { font-size: 44px; margin-bottom: 12px; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- TOP BAR -->
   <div class="topbar">
     <div class="topbar-title">FORCE <span>&</span> MUSCLE</div>
-    <div class="topbar-meta">4J / SEM · PPL+FB<br>INTERMÉDIAIRE · AVANCÉ</div>
+    <div class="topbar-meta">4J / SEM · PPL+FB</div>
   </div>
 
-  <!-- SCREENS -->
   <div id="screens">
-
-    <!-- ① PROGRAMME -->
     <div class="screen active" id="screen-programme">
-
-      <div class="install-banner" id="installBanner">
-        <div class="install-icon">📱</div>
-        <div class="install-text">
-          <strong>Ajouter à l'écran d'accueil</strong>
-          Safari → ⬆ Partager → « Sur l'écran d'accueil » pour utiliser comme une vraie app.
-        </div>
-        <button class="install-close" onclick="dismissBanner()">✕</button>
-      </div>
-
-      <div class="week-heading">Planning semaine</div>
-
-      <!-- J1 POUSSÉE -->
       <div class="day-card" id="card-j1" onclick="toggleCard('j1')">
         <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jour 1 — Lundi</div>
-            <div class="card-name">POUSSÉE</div>
-            <div class="card-muscles">Pectoraux · Épaules · Triceps</div>
-          </div>
-          <div class="card-chevron">›</div>
+            <div class="card-dot"></div>
+            <div class="card-info"><div class="card-day">Lundi</div><div class="card-name">POUSSÉE</div></div>
+            <div class="card-chevron">›</div>
         </div>
         <div class="card-detail" id="detail-j1"><div class="card-detail-inner">
-          <div class="detail-warmup">Échauffement 10 min — cardio léger + mobilité épaules</div>
-          <div class="ex-row"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Machine convergente à plat</div><div class="ex-note">Tension constante — focus squeeze en fin de course</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">6–8 rép</span><span class="chip chip-rest">2–3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Machine convergente inclinée</div><div class="ex-note">30–45° — faisceau claviculaire, contrôle excentrique</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">8–10 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Écarté cable basse poulie</div><div class="ex-note">Étirement maximal — meilleure hypertrophie pectorale</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">12–15 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Développé militaire debout</div><div class="ex-note">Barre ou haltères — gainage abdominal strict</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">6–8 rép</span><span class="chip chip-rest">2–3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Élévations latérales cable</div><div class="ex-note">Tension constante — 1 bras à la fois, éviter l'inertie</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">12–15 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Dips lestés</div><div class="ex-note">Corps légèrement incliné — composé lourd triceps</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">6–10 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">7</div><div class="ex-info"><div class="ex-name">Seated overhead dips</div><div class="ex-note">Chef long en étirement maximal — amplitude profonde</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">10–12 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">8</div><div class="ex-info"><div class="ex-name">Triceps poulie haute (corde)</div><div class="ex-note">Finition — supination en fin de course, contraction max</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">12–15 rép</span><span class="chip chip-rest">60 sec</span></div></div></div>
+            <div class="ex-row"><div class="ex-num">1</div><div><div class="ex-name">Machine convergente à plat</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span></div></div></div>
+            <div class="ex-row"><div class="ex-num">2</div><div><div class="ex-name">Machine convergente inclinée</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span></div></div></div>
         </div></div>
       </div>
-
-      <!-- J2 TIRAGE -->
-      <div class="day-card" id="card-j2" onclick="toggleCard('j2')">
-        <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jour 2 — Mardi</div>
-            <div class="card-name">TIRAGE</div>
-            <div class="card-muscles">Dos · Biceps · Trapèzes</div>
-          </div>
-          <div class="card-chevron">›</div>
-        </div>
-        <div class="card-detail" id="detail-j2"><div class="card-detail-inner">
-          <div class="detail-warmup">Échauffement 10 min — mobilité épaules & thoracique</div>
-          <div class="ex-row"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Tirage vertical prise large</div><div class="ex-note">Largeur du dos — coudes vers les hanches, omoplate déprimée</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">6–8 rép</span><span class="chip chip-rest">2–3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Tirage vertical prise serrée neutre</div><div class="ex-note">Étirement profond du grand dorsal — tirage vers le sternum</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">8–10 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Low Row Machine TechnoGym</div><div class="ex-note">Épaisseur dos & rhomboïdes — omoplates serrées en fin</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">8–10 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Face pull corde</div><div class="ex-note">Rotation externe — deltoïde post. & santé épaule</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">15–20 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Curl barre EZ</div><div class="ex-note">Mouvement strict — ne pas balancer, tempo 2-0-1</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">8–10 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Curl incliné haltères</div><div class="ex-note">Étirement long du biceps — banc 45–60°, supination en haut</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">10–12 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">7</div><div class="ex-info"><div class="ex-name">Curl marteau haltères</div><div class="ex-note">Brachial & long supinateur — épaisseur du bras</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">10–12 rép</span><span class="chip chip-rest">60 sec</span></div></div></div>
-        </div></div>
       </div>
 
-      <!-- REPOS -->
-      <div class="day-card rest">
-        <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jour 3 — Mercredi</div>
-            <div class="card-name">REPOS</div>
-            <div class="card-muscles">Marche légère · Étirements · Récupération active</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- J4 JAMBES -->
-      <div class="day-card" id="card-j4" onclick="toggleCard('j4')">
-        <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jour 4 — Jeudi</div>
-            <div class="card-name">JAMBES</div>
-            <div class="card-muscles">Quadriceps · Ischio-jambiers · Mollets</div>
-          </div>
-          <div class="card-chevron">›</div>
-        </div>
-        <div class="card-detail" id="detail-j4"><div class="card-detail-inner">
-          <div class="detail-warmup">Échauffement 10 min — mobilité hanches & chevilles</div>
-          <div class="ex-row"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Squat barre haute</div><div class="ex-note">Mouvement roi — profondeur complète si mobilité OK</div><div class="ex-chips"><span class="chip chip-sets">5 séries</span><span class="chip chip-reps">4–6 rép</span><span class="chip chip-rest">3–4 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Leg press 45°</div><div class="ex-note">Pieds hauts = ischio/fessiers · pieds bas = quadris</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">10–12 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Romanian Deadlift</div><div class="ex-note">Masse ischio — barre ou haltères, hanches en arrière</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">8–10 rép</span><span class="chip chip-rest">2 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Leg curl assis</div><div class="ex-note">Tension en étirement — supérieur au couché selon EMG récents</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">10–12 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Leg curl couché</div><div class="ex-note">Bonne contraction en raccourcissement — angle complémentaire</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">12–15 rép</span><span class="chip chip-rest">90 sec</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">6</div><div class="ex-info"><div class="ex-name">Mollets debout machine</div><div class="ex-note">Amplitude complète — pause étirée en bas, contraction en haut</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">12–15 rép</span><span class="chip chip-rest">60 sec</span></div></div></div>
-        </div></div>
-      </div>
-
-      <!-- J5 FULL BODY -->
-      <div class="day-card" id="card-j5" onclick="toggleCard('j5')">
-        <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jour 5 — Vendredi</div>
-            <div class="card-name">FULL BODY</div>
-            <div class="card-muscles">Force composés — charges maximales</div>
-          </div>
-          <div class="card-chevron">›</div>
-        </div>
-        <div class="card-detail" id="detail-j5"><div class="card-detail-inner">
-          <div class="detail-warmup">Séance force pure — rester à 1–2 reps du failure sur chaque set</div>
-          <div class="ex-row"><div class="ex-num">1</div><div class="ex-info"><div class="ex-name">Soulevé de terre classique</div><div class="ex-note">Mouvement principal — charge maximale contrôlée</div><div class="ex-chips"><span class="chip chip-sets">5 séries</span><span class="chip chip-reps">2–4 rép</span><span class="chip chip-rest">4–5 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">2</div><div class="ex-info"><div class="ex-name">Machine convergente à plat</div><div class="ex-note">Charge lourde — tempo lent, intention maximale</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">6–8 rép</span><span class="chip chip-rest">3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">3</div><div class="ex-info"><div class="ex-name">Tractions lestées</div><div class="ex-note">Prise large pronation — dos large</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">5–6 rép</span><span class="chip chip-rest">3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">4</div><div class="ex-info"><div class="ex-name">Développé militaire barre</div><div class="ex-note">Debout — gainage abdominal strict</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span><span class="chip chip-reps">5–6 rép</span><span class="chip chip-rest">2–3 min</span></div></div></div>
-          <div class="ex-row"><div class="ex-num">5</div><div class="ex-info"><div class="ex-name">Ab wheel / Planche RKC</div><div class="ex-note">Gainage anti-extension — core fonctionnel</div><div class="ex-chips"><span class="chip chip-sets">3 séries</span><span class="chip chip-reps">8–10 / 30s</span><span class="chip chip-rest">60 sec</span></div></div></div>
-        </div></div>
-      </div>
-
-      <!-- REPOS WEEK-END -->
-      <div class="day-card rest">
-        <div class="card-header">
-          <div class="card-dot"></div>
-          <div class="card-info">
-            <div class="card-day">Jours 6 & 7 — Week-end</div>
-            <div class="card-name">REPOS</div>
-            <div class="card-muscles">Activité libre · Sommeil · Nutrition prioritaires</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /screen-programme -->
-
-    <!-- ② PRINCIPES -->
     <div class="screen" id="screen-principes">
-      <div class="stat-row">
-        <div class="stat-card"><div class="stat-label">Fréquence</div><div class="stat-value">4J/SEM</div></div>
-        <div class="stat-card"><div class="stat-label">Durée séance</div><div class="stat-value">60–75M</div></div>
-        <div class="stat-card"><div class="stat-label">Méthode</div><div class="stat-value">PPL+FB</div></div>
-        <div class="stat-card"><div class="stat-label">Niveau</div><div class="stat-value">INTER+</div></div>
-      </div>
-
-      <div class="section-title">Entraînement</div>
-      <div class="principle-card"><div class="principle-icon">📈</div><div><div class="principle-title">Surcharge Progressive</div><div class="principle-text">Augmentez la charge de 2,5–5 kg dès que vous réalisez toutes les séries dans la fourchette haute de répétitions.</div></div></div>
-      <div class="principle-card"><div class="principle-icon">🎯</div><div><div class="principle-title">Intensité Contrôlée</div><div class="principle-text">Restez à 1–2 répétitions du failure sur les composés. L'échec est réservé aux exercices d'isolation.</div></div></div>
-      <div class="principle-card"><div class="principle-icon">⏱</div><div><div class="principle-title">Tempo & Technique</div><div class="principle-text">Phase excentrique lente (2–3 sec). Jamais de sacrifice technique pour ajouter du poids.</div></div></div>
-      <div class="principle-card"><div class="principle-icon">🔄</div><div><div class="principle-title">Décharge (Deload)</div><div class="principle-text">Toutes les 4–6 semaines, réduisez le volume de 40–50% pour permettre une super-compensation.</div></div></div>
-
-      <div class="section-title">Nutrition & Récupération</div>
-      <div class="principle-card"><div class="principle-icon">🍽</div><div><div class="principle-title">Protéines</div><div class="principle-text">Visez 1,8–2,2 g / kg de poids corporel. Léger surplus calorique de 200–300 kcal pour la prise de masse.</div></div></div>
-      <div class="principle-card"><div class="principle-icon">💤</div><div><div class="principle-title">Sommeil</div><div class="principle-text">7–9h de sommeil sont non-négociables. La croissance musculaire se produit au repos, pas en salle.</div></div></div>
-      <div class="principle-card"><div class="principle-icon">💧</div><div><div class="principle-title">Hydratation</div><div class="principle-text">2–3 L d'eau/jour minimum. La déshydratation réduit la force de 5–10%. Davantage les jours d'entraînement.</div></div></div>
+        <div class="form-title">Principes d'entraînement</div>
+        <p style="font-size:12px; color:#aaa;">Surcharge progressive, sommeil et nutrition.</p>
     </div>
 
-    <!-- ③ TRACKER -->
     <div class="screen" id="screen-tracker">
       <div class="tracker-form">
         <div class="form-title">+ Nouvelle séance</div>
         <div class="form-grid">
-          <div class="field"><label>Date</label><input type="date" id="t-date"></div>
-          <div class="field"><label>Séance</label>
-            <select id="t-session" onchange="onSessionChange(this.value)">
-              <option value="">Choisir...</option>
-              <option>Jour 1 — Poussée</option>
-              <option>Jour 2 — Tirage</option>
-              <option>Jour 4 — Jambes</option>
-              <option>Jour 5 — Full Body</option>
+          <div class="field full">
+            <label>Date</label>
+            <input type="date" id="t-date">
+          </div>
+          <div class="field full">
+            <label>Séance</label>
+            <select id="t-session">
+              <option value="">Choisir la séance...</option>
+              <option value="Jour 1 — Poussée">Jour 1 — Poussée</option>
+              <option value="Jour 2 — Tirage">Jour 2 — Tirage</option>
+              <option value="Jour 4 — Jambes">Jour 4 — Jambes</option>
+              <option value="Jour 5 — Full Body">Jour 5 — Full Body</option>
             </select>
           </div>
-          <div class="field full" id="exercise-field">
+          <div class="field full">
             <label>Exercice</label>
-            <select id="t-exercise-select" style="display:none" onchange="onExerciseSelect(this.value)">
-              <option value="">Choisir un exercice...</option>
+            <select id="t-exercise">
+              <option value="">Sélectionnez une séance d'abord...</option>
             </select>
-            <input type="text" id="t-exercise" placeholder="← Choisissez d'abord une séance" readonly style="cursor:default;color:#333;">
           </div>
-          <div class="field"><label>Charge (kg)</label><input type="number" id="t-weight" placeholder="Ex: 80"></div>
-          <div class="field"><label>Séries × Reps</label><input type="text" id="t-sets" placeholder="Ex: 4×8"></div>
-          <div class="field full"><label>Notes</label><input type="text" id="t-notes" placeholder="Ressenti, technique..."></div>
+          <div class="field">
+            <label>Charge (kg)</label>
+            <input type="number" id="t-weight" placeholder="Ex: 80">
+          </div>
+          <div class="field">
+            <label>Séries × Reps</label>
+            <input type="text" id="t-sets" placeholder="Ex: 4×8">
+          </div>
         </div>
         <button class="save-btn" onclick="saveEntry()">ENREGISTRER</button>
-        <div class="saved-toast" id="savedMsg">✓ Séance enregistrée !</div>
       </div>
       <div id="logSection"></div>
     </div>
-
-  </div><!-- /screens -->
-
-  <!-- TAB BAR -->
-  <div class="tabbar">
-    <div class="tab active" id="tab-programme" onclick="switchTab('programme')">
-      <div class="tab-indicator"></div>
-      <div class="tab-icon">🗓</div>
-      <div class="tab-label">Programme</div>
-    </div>
-    <div class="tab" id="tab-principes" onclick="switchTab('principes')">
-      <div class="tab-indicator"></div>
-      <div class="tab-icon">⚡</div>
-      <div class="tab-label">Principes</div>
-    </div>
-    <div class="tab" id="tab-tracker" onclick="switchTab('tracker')">
-      <div class="tab-indicator"></div>
-      <div class="tab-icon">📋</div>
-      <div class="tab-label">Suivi</div>
-    </div>
   </div>
 
-</div><!-- /app -->
+  <div class="tabbar">
+    <div class="tab active" id="tab-programme" onclick="switchTab('programme')">
+      <div class="tab-indicator"></div><div class="tab-icon">🗓</div><div class="tab-label">Programme</div>
+    </div>
+    <div class="tab" id="tab-principes" onclick="switchTab('principes')">
+      <div class="tab-indicator"></div><div class="tab-icon">⚡</div><div class="tab-label">Principes</div>
+    </div>
+    <div class="tab" id="tab-tracker" onclick="switchTab('tracker')">
+      <div class="tab-indicator"></div><div class="tab-icon">📋</div><div class="tab-label">Suivi</div>
+    </div>
+  </div>
+</div>
 
 <script>
-// ── Install banner ─────────────────────────────────
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIOS && !window.navigator.standalone && !localStorage.getItem('installDismissed')) {
-  document.getElementById('installBanner').classList.add('visible');
-}
-function dismissBanner() {
-  document.getElementById('installBanner').classList.remove('visible');
-  localStorage.setItem('installDismissed', '1');
-}
-
-// ── Tab navigation ──────────────────────────────────
-let currentTab = 'programme';
-const tabOrder = ['programme', 'principes', 'tracker'];
-
-function switchTab(name) {
-  if (name === currentTab) return;
-
-  const oldScreen = document.getElementById('screen-' + currentTab);
-  const newScreen = document.getElementById('screen-' + name);
-  const dir = tabOrder.indexOf(name) > tabOrder.indexOf(currentTab) ? 1 : -1;
-
-  // Slide out old
-  oldScreen.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-  oldScreen.style.opacity = '0';
-  oldScreen.style.transform = `translateX(${-28 * dir}px)`;
-  oldScreen.style.pointerEvents = 'none';
-
-  // Prepare new
-  newScreen.style.transition = 'none';
-  newScreen.style.opacity = '0';
-  newScreen.style.transform = `translateX(${28 * dir}px)`;
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    newScreen.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
-    newScreen.style.opacity = '1';
-    newScreen.style.transform = 'translateX(0)';
-    newScreen.style.pointerEvents = 'all';
-  }));
-
-  document.getElementById('tab-' + currentTab).classList.remove('active');
-  document.getElementById('tab-' + name).classList.add('active');
-  currentTab = name;
-  newScreen.scrollTop = 0;
-
-  if (name === 'tracker') renderLog();
-}
-
-// ── Card expand ─────────────────────────────────────
-let openCard = null;
-
-function toggleCard(id) {
-  const card = document.getElementById('card-' + id);
-  const detail = document.getElementById('detail-' + id);
-  const isOpen = card.classList.contains('open');
-
-  if (openCard && openCard !== id) {
-    document.getElementById('card-' + openCard).classList.remove('open');
-    document.getElementById('detail-' + openCard).classList.remove('open');
-  }
-
-  card.classList.toggle('open', !isOpen);
-  detail.classList.toggle('open', !isOpen);
-  openCard = isOpen ? null : id;
-
-  if (!isOpen) setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
-}
-
-// ── Session → exercises map ─────────────────────────
-const SESSION_EXERCISES = {
-  'Jour 1 — Poussée': [
-    'Machine convergente à plat',
-    'Machine convergente inclinée',
-    'Écarté cable basse poulie',
-    'Développé militaire debout',
-    'Élévations latérales cable',
-    'Dips lestés',
-    'Seated overhead dips',
-    'Triceps poulie haute (corde)',
-  ],
-  'Jour 2 — Tirage': [
-    'Tirage vertical prise large',
-    'Tirage vertical prise serrée neutre',
-    'Low Row Machine TechnoGym',
-    'Face pull corde',
-    'Curl barre EZ',
-    'Curl incliné haltères',
-    'Curl marteau haltères',
-  ],
-  'Jour 4 — Jambes': [
-    'Squat barre haute',
-    'Leg press 45°',
-    'Romanian Deadlift',
-    'Leg curl assis',
-    'Leg curl couché',
-    'Mollets debout machine',
-  ],
-  'Jour 5 — Full Body': [
-    'Soulevé de terre classique',
-    'Machine convergente à plat',
-    'Tractions lestées',
-    'Développé militaire barre',
-    'Ab wheel / Planche RKC',
-  ],
+// --- DONNÉES ---
+const exercicesParSeance = {
+  "Jour 1 — Poussée": ["Machine convergente à plat", "Machine convergente inclinée", "Écarté cable basse poulie", "Développé militaire debout", "Élévations latérales cable", "Dips lestés", "Seated overhead dips", "Triceps poulie haute (corde)"],
+  "Jour 2 — Tirage": ["Tirage vertical prise large", "Tirage vertical prise serrée neutre", "Low Row Machine TechnoGym", "Face pull corde", "Curl barre EZ", "Curl incliné haltères", "Curl marteau haltères"],
+  "Jour 4 — Jambes": ["Squat barre haute", "Leg press 45°", "Romanian Deadlift", "Leg curl assis", "Leg curl couché", "Mollets debout machine"],
+  "Jour 5 — Full Body": ["Soulevé de terre classique", "Machine convergente à plat", "Tractions lestées", "Développé militaire barre", "Ab wheel / Planche RKC"]
 };
 
-function onSessionChange(session) {
-  const sel = document.getElementById('t-exercise-select');
-  const inp = document.getElementById('t-exercise');
+// --- LOGIQUE LIAISON ---
+const sessionSelect = document.getElementById('t-session');
+const exerciseSelect = document.getElementById('t-exercise');
 
-  if (!session || !SESSION_EXERCISES[session]) {
-    // No session: show locked input
-    sel.style.display = 'none';
-    inp.style.display = '';
-    inp.value = '';
-    inp.placeholder = '← Choisissez d'abord une séance';
-    inp.readOnly = true;
-    inp.style.cursor = 'default';
-    inp.style.color = '#333';
-    return;
-  }
-
-  // Build dropdown
-  const exercises = SESSION_EXERCISES[session];
-  sel.innerHTML = '<option value="">Choisir un exercice...</option>';
-  exercises.forEach(ex => {
+sessionSelect.addEventListener('change', function() {
+  const exercices = exercicesParSeance[this.value] || [];
+  exerciseSelect.innerHTML = '<option value="">Choisir l\'exercice...</option>';
+  exercices.forEach(ex => {
     const opt = document.createElement('option');
-    opt.value = ex;
-    opt.textContent = ex;
-    sel.appendChild(opt);
+    opt.value = ex; opt.textContent = ex;
+    exerciseSelect.appendChild(opt);
   });
-  // Add "Autre" option
-  const other = document.createElement('option');
-  other.value = '__autre__';
-  other.textContent = 'Autre (saisir manuellement)';
-  sel.appendChild(other);
+});
 
-  sel.value = '';
-  sel.style.display = '';
-  inp.style.display = 'none';
-  inp.value = '';
+// --- NAVIGATION ---
+let currentTab = 'programme';
+function switchTab(name) {
+  document.getElementById('screen-' + currentTab).classList.remove('active');
+  document.getElementById('tab-' + currentTab).classList.remove('active');
+  document.getElementById('screen-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  currentTab = name;
+  if(name === 'tracker') renderLog();
 }
 
-function onExerciseSelect(value) {
-  const inp = document.getElementById('t-exercise');
-  if (value === '__autre__') {
-    const sel = document.getElementById('t-exercise-select');
-    sel.style.display = 'none';
-    inp.style.display = '';
-    inp.value = '';
-    inp.placeholder = 'Saisir l'exercice...';
-    inp.readOnly = false;
-    inp.style.cursor = '';
-    inp.style.color = '';
-    inp.focus();
-  } else {
-    inp.value = value;
-  }
+// --- CARD EXPAND ---
+function toggleCard(id) {
+  document.getElementById('card-' + id).classList.toggle('open');
+  document.getElementById('detail-' + id).classList.toggle('open');
 }
 
-// ── Tracker ─────────────────────────────────────────
+// --- TRACKER LOGIC ---
 let log = JSON.parse(localStorage.getItem('gymLog') || '[]');
 
 function saveEntry() {
-  const sel = document.getElementById('t-exercise-select');
-  const inp = document.getElementById('t-exercise');
-  // Get exercise value: from select (if visible & chosen) or from text input
-  let exercise = '';
-  if (sel.style.display !== 'none' && sel.value && sel.value !== '__autre__') {
-    exercise = sel.value;
-  } else {
-    exercise = inp.value.trim();
-  }
-  if (!exercise) {
-    if (sel.style.display !== 'none') { sel.focus(); } else { inp.focus(); }
-    return;
-  }
-
   const entry = {
     id: Date.now(),
     date: document.getElementById('t-date').value || new Date().toLocaleDateString('fr-FR'),
-    session: document.getElementById('t-session').value,
-    exercise,
+    exercise: exerciseSelect.value,
     weight: document.getElementById('t-weight').value,
-    sets: document.getElementById('t-sets').value,
-    notes: document.getElementById('t-notes').value,
+    sets: document.getElementById('t-sets').value
   };
-
+  if(!entry.exercise) return alert("Choisis un exercice !");
   log.unshift(entry);
-  localStorage.setItem('gymLog', JSON.stringify(log.slice(0, 100)));
-
-  ['t-weight','t-sets','t-notes'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('t-exercise').value = '';
-  const selAfter = document.getElementById('t-exercise-select');
-  selAfter.style.display = 'none';
-  selAfter.innerHTML = '';
-  document.getElementById('t-exercise').style.display = '';
-  document.getElementById('t-exercise').placeholder = '← Choisissez d\'abord une séance';
-  document.getElementById('t-exercise').readOnly = true;
-  document.getElementById('t-exercise').style.cursor = 'default';
-  document.getElementById('t-exercise').style.color = '#333';
-  document.getElementById('t-session').value = '';
-
-  renderLog();
-
-  const toast = document.getElementById('savedMsg');
-  toast.style.display = 'block';
-  setTimeout(() => toast.style.display = 'none', 2500);
-}
-
-function deleteEntry(id) {
-  log = log.filter(e => e.id !== id);
   localStorage.setItem('gymLog', JSON.stringify(log));
   renderLog();
 }
 
-function clearAll() {
-  if (!confirm('Supprimer tout l\'historique ?')) return;
-  log = [];
-  localStorage.removeItem('gymLog');
-  renderLog();
-}
-
 function renderLog() {
-  const c = document.getElementById('logSection');
-  if (!log.length) {
-    c.innerHTML = `<div class="empty-state"><div class="empty-icon">🏋️</div>Aucune séance enregistrée.<br>Commencez à tracker vos performances !</div>`;
-    return;
-  }
-  let html = `<div class="log-header">
-    <div class="log-count">Historique <span>${log.length}</span></div>
-    <button class="clear-btn" onclick="clearAll()">🗑 Tout vider</button>
-  </div>`;
-  log.forEach(e => {
-    html += `<div class="log-entry">
-      <div class="log-left">
+  const section = document.getElementById('logSection');
+  section.innerHTML = log.map(e => `
+    <div class="log-entry">
+      <div>
         <div class="log-exercise">${e.exercise}</div>
-        <div class="log-meta">${e.date}${e.session ? ' · ' + e.session : ''}</div>
-        ${e.sets ? `<div class="log-sets">${e.sets}</div>` : ''}
-        ${e.notes ? `<div class="log-meta" style="font-style:italic;margin-top:2px">${e.notes}</div>` : ''}
+        <div class="log-meta">${e.date} • ${e.sets || ''}</div>
       </div>
-      ${e.weight ? `<div class="log-weight">${e.weight}<small>kg</small></div>` : ''}
-      <button class="log-del" onclick="deleteEntry(${e.id})">✕</button>
-    </div>`;
-  });
-  c.innerHTML = html;
+      <div class="log-weight">${e.weight || 0}kg</div>
+    </div>
+  `).join('');
 }
-
-renderLog();
-</script>
-<script>
-// Tell parent frame our required height so Streamlit can resize the iframe
-function reportHeight() {
-  const h = document.getElementById('app') ? document.getElementById('app').scrollHeight : document.body.scrollHeight;
-  window.parent.postMessage({type: 'streamlit:setFrameHeight', height: Math.max(h, window.innerHeight)}, '*');
-}
-window.addEventListener('load', reportHeight);
-window.addEventListener('resize', reportHeight);
 </script>
 </body>
 </html>
