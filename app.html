@@ -37,7 +37,6 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  height: -webkit-fill-available;
 }
 
 .topbar {
@@ -48,174 +47,175 @@ html, body {
   align-items: flex-end;
   justify-content: space-between;
   background: var(--black);
-  position: relative;
-  z-index: 10;
-}
-.topbar::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(232,255,0,0.4), transparent);
-}
-.topbar-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 30px; line-height: 1; letter-spacing: 1px;
-}
-.topbar-title span { color: var(--accent); }
-.topbar-meta {
-  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted); text-align: right; line-height: 1.7;
 }
 
-#screens {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-}
+.topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; line-height: 1; letter-spacing: 1px; }
+.topbar-title span { color: var(--accent); }
+.topbar-meta { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+#screens { flex: 1; overflow: hidden; position: relative; }
 
 .screen {
   position: absolute;
   inset: 0;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   padding: 20px 16px calc(20px + var(--tab-h) + var(--safe-b));
   opacity: 0;
   transform: translateX(30px);
   pointer-events: none;
-  transition: opacity 0.28s cubic-bezier(.4,0,.2,1), transform 0.28s cubic-bezier(.4,0,.2,1);
+  transition: all 0.3s ease;
 }
-.screen.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: all;
-}
+.screen.active { opacity: 1; transform: translateX(0); pointer-events: all; }
 
-.tabbar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: calc(var(--tab-h) + var(--safe-b));
-  padding-bottom: var(--safe-b);
-  background: rgba(8,8,8,0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid var(--border);
-  display: flex;
-  z-index: 100;
-}
-
-.tab {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  cursor: pointer;
-  padding: 8px 4px;
-  position: relative;
-}
-
-.tab-indicator {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 28px; height: 2px;
-  background: var(--accent);
-  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
-}
-.tab.active .tab-indicator { transform: translateX(-50%) scaleX(1); }
-
-.tab-icon { font-size: 21px; }
-.tab.active .tab-icon { transform: scale(1.18) translateY(-2px); }
-
-.tab-label {
-  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--muted);
-}
-.tab.active .tab-label { color: var(--accent); }
-
-.day-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  cursor: pointer;
-}
-.day-card.open { border-color: rgba(232,255,0,0.5); }
-.day-card.rest { cursor: default; opacity: 0.55; }
-
-.card-header { padding: 15px 16px; display: flex; align-items: center; gap: 13px; }
+/* PROGRAMME STYLES */
+.day-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
+.card-header { padding: 15px 16px; display: flex; align-items: center; gap: 13px; cursor: pointer; }
 .card-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.day-card.rest { opacity: 0.6; }
 .day-card.rest .card-dot { background: var(--muted); }
 .card-info { flex: 1; }
 .card-day { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1.1; }
-.card-muscles { font-size: 11px; color: #444; font-weight: 300; }
-.card-chevron { font-size: 20px; color: #333; transition: transform 0.25s; }
+.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; }
+.card-chevron { font-size: 18px; color: #333; transition: 0.3s; }
 .day-card.open .card-chevron { transform: rotate(90deg); color: var(--accent); }
+.card-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.card-detail.open { max-height: 2000px; }
+.card-detail-inner { border-top: 1px solid var(--border); padding: 10px 16px; }
 
-.card-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
-.card-detail.open { max-height: 3000px; }
-.card-detail-inner { border-top: 1px solid var(--border); padding: 14px 16px 18px; }
+.ex-row { padding: 12px 0; border-bottom: 1px solid #222; }
+.ex-name { font-size: 14px; font-weight: 500; }
+.ex-chips { display: flex; gap: 6px; margin-top: 6px; }
+.chip { font-family: 'Bebas Neue', sans-serif; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(232,255,0,0.1); color: var(--accent); }
 
-.ex-row { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid #181818; }
-.ex-num { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2a2a2a; width: 20px; }
-.ex-name { font-size: 14px; font-weight: 500; color: var(--white); }
-.ex-note { font-size: 11px; color: #4a4a4a; margin-top: 3px; }
-.ex-chips { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
-.chip { font-family: 'Bebas Neue', sans-serif; font-size: 12px; padding: 3px 8px; border-radius: 5px; }
-.chip-sets { background: rgba(232,255,0,0.1); color: var(--accent); }
-.chip-reps { background: rgba(255,255,255,0.05); color: #888; }
+/* PRINCIPES STYLES */
+.principle-card { background: var(--card); padding: 16px; border-radius: 12px; margin-bottom: 12px; border-left: 3px solid var(--accent); }
+.principle-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; margin-bottom: 6px; color: var(--accent); }
+.principle-text { font-size: 13px; color: #ccc; line-height: 1.5; }
 
-.tracker-form { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
-.form-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--accent); margin-bottom: 14px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+/* TRACKER STYLES */
+.tracker-form { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .field.full { grid-column: 1 / -1; }
-.field label { display: block; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
-.field input, .field select { width: 100%; background: #111; border: 1px solid var(--border); border-radius: 7px; color: var(--white); padding: 10px; font-size: 13px; outline: none; }
+.field label { display: block; font-size: 9px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.field input, .field select { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 8px; color: #fff; padding: 10px; font-size: 14px; }
+.save-btn { width: 100%; background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 14px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; margin-top: 15px; }
 
-.save-btn { width: 100%; background: var(--accent); color: var(--black); border: none; border-radius: 8px; padding: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; margin-top: 15px; cursor: pointer; }
-
-.log-entry { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 13px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: flex-start; }
+.log-entry { background: var(--card); padding: 12px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
 .log-exercise { font-size: 14px; font-weight: 500; }
 .log-meta { font-size: 11px; color: var(--muted); }
-.log-weight { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); }
+.log-weight { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--accent); }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+/* TABBAR */
+.tabbar { position: fixed; bottom: 0; left: 0; right: 0; height: calc(var(--tab-h) + var(--safe-b)); background: #080808; border-top: 1px solid var(--border); display: flex; padding-bottom: var(--safe-b); }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0.4; transition: 0.3s; }
+.tab.active { opacity: 1; }
+.tab-icon { font-size: 20px; }
+.tab-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
 </style>
 </head>
 <body>
-<div id="app">
 
+<div id="app">
   <div class="topbar">
     <div class="topbar-title">FORCE <span>&</span> MUSCLE</div>
-    <div class="topbar-meta">4J / SEM · PPL+FB</div>
+    <div class="topbar-meta">4 Jours / Semaine</div>
   </div>
 
   <div id="screens">
     <div class="screen active" id="screen-programme">
-      <div class="day-card" id="card-j1" onclick="toggleCard('j1')">
-        <div class="card-header">
-            <div class="card-dot"></div>
-            <div class="card-info"><div class="card-day">Lundi</div><div class="card-name">POUSSÉE</div></div>
-            <div class="card-chevron">›</div>
+      
+      <div class="day-card" id="card-j1">
+        <div class="card-header" onclick="toggleCard('j1')">
+          <div class="card-dot"></div>
+          <div class="card-info"><div class="card-day">Lundi</div><div class="card-name">POUSSÉE (PUSH)</div></div>
+          <div class="card-chevron">›</div>
         </div>
         <div class="card-detail" id="detail-j1"><div class="card-detail-inner">
-            <div class="ex-row"><div class="ex-num">1</div><div><div class="ex-name">Machine convergente à plat</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span></div></div></div>
-            <div class="ex-row"><div class="ex-num">2</div><div><div class="ex-name">Machine convergente inclinée</div><div class="ex-chips"><span class="chip chip-sets">4 séries</span></div></div></div>
+          <div class="ex-row"><div class="ex-name">Machine convergente à plat</div><div class="ex-chips"><span class="chip">4 séries</span><span class="chip">8-10 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Machine convergente inclinée</div><div class="ex-chips"><span class="chip">4 séries</span><span class="chip">10-12 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Écarté cable basse poulie</div><div class="ex-chips"><span class="chip">3 séries</span><span class="chip">12-15 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Développé militaire debout</div><div class="ex-chips"><span class="chip">4 séries</span><span class="chip">8-10 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Élévations latérales cable</div><div class="ex-chips"><span class="chip">4 séries</span><span class="chip">15-20 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Dips lestés</div><div class="ex-chips"><span class="chip">3 séries</span><span class="chip">8-12 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Seated overhead dips</div><div class="ex-chips"><span class="chip">3 séries</span><span class="chip">10-12 reps</span></div></div>
+          <div class="ex-row"><div class="ex-name">Triceps poulie haute (corde)</div><div class="ex-chips"><span class="chip">3 séries</span><span class="chip">12-15 reps</span></div></div>
         </div></div>
       </div>
+
+      <div class="day-card" id="card-j2">
+        <div class="card-header" onclick="toggleCard('j2')">
+          <div class="card-dot"></div>
+          <div class="card-info"><div class="card-day">Mardi</div><div class="card-name">TIRAGE (PULL)</div></div>
+          <div class="card-chevron">›</div>
+        </div>
+        <div class="card-detail" id="detail-j2"><div class="card-detail-inner">
+          <div class="ex-row"><div class="ex-name">Tirage vertical prise large</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Tirage vertical prise serrée neutre</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Low Row Machine TechnoGym</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Face pull corde</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Curl barre EZ</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Curl incliné haltères</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Curl marteau haltères</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+        </div></div>
       </div>
 
+      <div class="day-card rest">
+        <div class="card-header">
+          <div class="card-dot"></div>
+          <div class="card-info"><div class="card-day">Mercredi</div><div class="card-name">REPOS / CARDIO LÉGER</div></div>
+        </div>
+      </div>
+
+      <div class="day-card" id="card-j4">
+        <div class="card-header" onclick="toggleCard('j4')">
+          <div class="card-dot"></div>
+          <div class="card-info"><div class="card-day">Jeudi</div><div class="card-name">JAMBES (LEGS)</div></div>
+          <div class="card-chevron">›</div>
+        </div>
+        <div class="card-detail" id="detail-j4"><div class="card-detail-inner">
+          <div class="ex-row"><div class="ex-name">Squat barre haute</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Leg press 45°</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Romanian Deadlift</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Leg curl assis</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Leg curl couché</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+          <div class="ex-row"><div class="ex-name">Mollets debout machine</div><div class="ex-chips"><span class="chip">4 séries</span></div></div>
+        </div></div>
+      </div>
+
+      <div class="day-card" id="card-j5">
+        <div class="card-header" onclick="toggleCard('j5')">
+          <div class="card-dot"></div>
+          <div class="card-info"><div class="card-day">Vendredi</div><div class="card-name">FULL BODY (FORCE)</div></div>
+          <div class="card-chevron">›</div>
+        </div>
+        <div class="card-detail" id="detail-j5"><div class="card-detail-inner">
+          <div class="ex-row"><div class="ex-name">Soulevé de terre classique</div><div class="ex-chips"><span class="chip">3 séries de 5</span></div></div>
+          <div class="ex-row"><div class="ex-name">Machine convergente à plat</div><div class="ex-chips"><span class="chip">3 séries de 6</span></div></div>
+          <div class="ex-row"><div class="ex-name">Tractions lestées</div><div class="ex-chips"><span class="chip">3 séries de 6</span></div></div>
+          <div class="ex-row"><div class="ex-name">Développé militaire barre</div><div class="ex-chips"><span class="chip">3 séries de 6</span></div></div>
+          <div class="ex-row"><div class="ex-name">Ab wheel / Planche RKC</div><div class="ex-chips"><span class="chip">3 séries</span></div></div>
+        </div></div>
+      </div>
+
+    </div>
+
     <div class="screen" id="screen-principes">
-        <div class="form-title">Principes d'entraînement</div>
-        <p style="font-size:12px; color:#aaa;">Surcharge progressive, sommeil et nutrition.</p>
+      <div class="principle-card">
+        <div class="principle-title">Surcharge Progressive</div>
+        <div class="principle-text">La clé de la croissance. Augmentez soit le poids (+1-2kg), soit les répétitions, soit réduisez le temps de repos à chaque séance.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">Temps de Repos</div>
+        <div class="principle-text">Gros exercices (Squat, SDT) : 3-5 min.<br>Isolations : 60-90 sec.</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">Nutrition & Sommeil</div>
+        <div class="principle-text">Visez 1.8g à 2g de protéines par kg de poids de corps. Dormez au moins 7-8h pour une récupération optimale.</div>
+      </div>
     </div>
 
     <div class="screen" id="screen-tracker">
       <div class="tracker-form">
-        <div class="form-title">+ Nouvelle séance</div>
         <div class="form-grid">
           <div class="field full">
             <label>Date</label>
@@ -234,19 +234,19 @@ html, body {
           <div class="field full">
             <label>Exercice</label>
             <select id="t-exercise">
-              <option value="">Sélectionnez une séance d'abord...</option>
+              <option value="">Choisir la séance d'abord...</option>
             </select>
           </div>
           <div class="field">
             <label>Charge (kg)</label>
-            <input type="number" id="t-weight" placeholder="Ex: 80">
+            <input type="number" id="t-weight" placeholder="0">
           </div>
           <div class="field">
-            <label>Séries × Reps</label>
-            <input type="text" id="t-sets" placeholder="Ex: 4×8">
+            <label>Séries x Reps</label>
+            <input type="text" id="t-sets" placeholder="4x10">
           </div>
         </div>
-        <button class="save-btn" onclick="saveEntry()">ENREGISTRER</button>
+        <button class="save-btn" onclick="saveEntry()">ENREGISTRER LA PERFORMANCE</button>
       </div>
       <div id="logSection"></div>
     </div>
@@ -254,19 +254,19 @@ html, body {
 
   <div class="tabbar">
     <div class="tab active" id="tab-programme" onclick="switchTab('programme')">
-      <div class="tab-indicator"></div><div class="tab-icon">🗓</div><div class="tab-label">Programme</div>
+      <div class="tab-icon">🗓</div><div class="tab-label">Prog</div>
     </div>
     <div class="tab" id="tab-principes" onclick="switchTab('principes')">
-      <div class="tab-indicator"></div><div class="tab-icon">⚡</div><div class="tab-label">Principes</div>
+      <div class="tab-icon">⚡</div><div class="tab-label">Principes</div>
     </div>
     <div class="tab" id="tab-tracker" onclick="switchTab('tracker')">
-      <div class="tab-indicator"></div><div class="tab-icon">📋</div><div class="tab-label">Suivi</div>
+      <div class="tab-icon">📊</div><div class="tab-label">Suivi</div>
     </div>
   </div>
 </div>
 
 <script>
-// --- DONNÉES ---
+// --- DONNÉES DES EXERCICES ---
 const exercicesParSeance = {
   "Jour 1 — Poussée": ["Machine convergente à plat", "Machine convergente inclinée", "Écarté cable basse poulie", "Développé militaire debout", "Élévations latérales cable", "Dips lestés", "Seated overhead dips", "Triceps poulie haute (corde)"],
   "Jour 2 — Tirage": ["Tirage vertical prise large", "Tirage vertical prise serrée neutre", "Low Row Machine TechnoGym", "Face pull corde", "Curl barre EZ", "Curl incliné haltères", "Curl marteau haltères"],
@@ -274,7 +274,7 @@ const exercicesParSeance = {
   "Jour 5 — Full Body": ["Soulevé de terre classique", "Machine convergente à plat", "Tractions lestées", "Développé militaire barre", "Ab wheel / Planche RKC"]
 };
 
-// --- LOGIQUE LIAISON ---
+// --- LOGIQUE SÉANCE / EXERCICE ---
 const sessionSelect = document.getElementById('t-session');
 const exerciseSelect = document.getElementById('t-exercise');
 
@@ -299,41 +299,64 @@ function switchTab(name) {
   if(name === 'tracker') renderLog();
 }
 
-// --- CARD EXPAND ---
 function toggleCard(id) {
   document.getElementById('card-' + id).classList.toggle('open');
   document.getElementById('detail-' + id).classList.toggle('open');
 }
 
-// --- TRACKER LOGIC ---
+// --- PERSISTENCE (LOCALSTORAGE) ---
 let log = JSON.parse(localStorage.getItem('gymLog') || '[]');
 
 function saveEntry() {
+  const dateVal = document.getElementById('t-date').value;
   const entry = {
     id: Date.now(),
-    date: document.getElementById('t-date').value || new Date().toLocaleDateString('fr-FR'),
+    date: dateVal ? new Date(dateVal).toLocaleDateString('fr-FR') : new Date().toLocaleDateString('fr-FR'),
     exercise: exerciseSelect.value,
     weight: document.getElementById('t-weight').value,
     sets: document.getElementById('t-sets').value
   };
-  if(!entry.exercise) return alert("Choisis un exercice !");
+  
+  if(!entry.exercise) return alert("Sélectionne un exercice !");
+  
   log.unshift(entry);
   localStorage.setItem('gymLog', JSON.stringify(log));
+  
+  // Reset form
+  document.getElementById('t-weight').value = '';
+  document.getElementById('t-sets').value = '';
+  
   renderLog();
+}
+
+function deleteEntry(id) {
+  if(confirm("Supprimer cette entrée ?")) {
+    log = log.filter(e => e.id !== id);
+    localStorage.setItem('gymLog', JSON.stringify(log));
+    renderLog();
+  }
 }
 
 function renderLog() {
   const section = document.getElementById('logSection');
+  if(log.length === 0) {
+    section.innerHTML = '<p style="text-align:center; color:#555; margin-top:20px;">Aucun historique pour le moment.</p>';
+    return;
+  }
   section.innerHTML = log.map(e => `
-    <div class="log-entry">
+    <div class="log-entry" onclick="deleteEntry(${e.id})">
       <div>
         <div class="log-exercise">${e.exercise}</div>
-        <div class="log-meta">${e.date} • ${e.sets || ''}</div>
+        <div class="log-meta">${e.date} • ${e.sets || '-'}</div>
       </div>
       <div class="log-weight">${e.weight || 0}kg</div>
     </div>
   `).join('');
 }
+
+// Initialisation de la date du jour
+document.getElementById('t-date').valueAsDate = new Date();
 </script>
+
 </body>
 </html>
